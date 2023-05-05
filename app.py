@@ -111,17 +111,17 @@ def mapa_mensal():
 			retornos = yf.download(str(ticker)+'.SA', start = data_inicial, end = data_final, interval ='1mo')['Close'].pct_change()
 	
 		retornos.index = pd.to_datetime(retornos.index)
-		st.write(retornos)	
+		#st.write(retornos)	aqui colocamos para saber se esta rodando certo, depois pode tirar
 
 		#vamos separar e agrupar os anos e meses
 		retorno_mensal = retornos.groupby([retornos.index.year.rename('Year'), retornos.index.month.rename('Month')]).mean()
-		st.write(retorno_mensal)
+		#st.write(retorno_mensal) aqui colocamos para saber se esta rodando certo, depois pode tirar
 
 		#criando a tabela de matriz de retornos
 		tabela_retornos = pd.DataFrame(retorno_mensal)
 		tabela_retornos = pd.pivot_table(tabela_retornos, values = 'Close', index = 'Year', columns = 'Month')
 		tabela_retornos.columns = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ']
-		st.write(tabela_retornos)
+		#st.write(tabela_retornos) aqui colocamos para saber se esta rodando certo, depois pode tirar
 
 		#criacao do heatmap
 		fig, ax = plt.subplots(figsize = (12,10)) #cria 2 figuras
