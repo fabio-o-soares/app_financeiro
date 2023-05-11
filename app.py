@@ -16,6 +16,8 @@ def home():
 		st.title('App Financeiro')
 		st.markdown('---')
 
+
+
 # ---------------------- mudando para outrao opcao do menu
 def panorama():
 	st.title('Panorama do Mercado')
@@ -31,7 +33,7 @@ def panorama():
 	df_info['%'] =''
 	count = 0                                                           #criamos um contador para cada interacao do loop a seguir
 	with st.spinner('Baixando cotações...'):                            #criamos um spiner para carregar as cotacoes                                                 
-		for ticker in dict_tickers.values():                               #para cada ticker dentro do df dicttickers pegando os valores
+		for ticker in dict_tickers.values():                          #para cada ticker dentro do df dicttickers pegando os valores
 			cotacoes = yf.download(ticker, period ='5d')['Adj Close']
 			variacao = ((cotacoes.iloc[-1]/cotacoes.iloc[-2])-1)*100
 			df_info['Ult. Valor'][count] = round(cotacoes.iloc[-1],2)
@@ -191,16 +193,43 @@ def fundamentos():
 			info_papel1 = fd.get_detalhes_papel(papel1) #funcao da fundamentus para pegar todas as inform do papel selecionado
 
 			#st.write(info_papel1) #aqui, usamos o infopapel para saber as colunas que podemos exibir, depois construimos acima separado o que queremos analisar
-			st.write('**Empresa:**'            ,       info_papel1      ['Empresa'][0])  #** é negrito e o indice zero é para pegar o valor que esta na variavel
+			st.write('**Empresa:**'            ,       info_papel1      ['Empresa'][0])  #** é negrito e o indice 0 é p/ pegar o valor que esta na variavel
 			st.write('**Setor:**'              ,       info_papel1      ['Setor'][0]) 
-			st.write('**Subsetor:**'           ,       info_papel1      ['Subsetor'][0]) 
-			st.write('**Valor de Mercado:**'   , f"R$ {info_papel1      ['Valor_de_mercado'][0]:,.2f}") 
-			st.write('**Patrimônio Líquido:**' , f"R$ {float(info_papel1['Patrim_Liq' ][0]):,.2f}")
-			st.write('**Receita Líquida 12m:**', f"R$ {float(info_papel1['Receita_Liquida_12m'][0]):,.2f}")
-			st.write('**Dívida Bruta:**'       , f"R$ {float(info_papel1['Div_Bruta'  ][0]):,.2f}")
-			st.write('**Dívida Líquida:**'     , f"R$ {float(info_papel1['Div_Liquida'][0]):,.2f}")
-			st.write('**P/L:**'                , f"R$ {float(info_papel1['PL'         ][0]):,.2f}")
-			st.write('**Dividend Yield:**'     , f"   {info_papel1      ['Div_Yield'  ][0]}")
+			st.write('**Subsetor:**'           ,       info_papel1      ['Subsetor'][0])
+			st.markdown('---')
+			try:
+				st.write('**Valor de mercado:**'   , f"R$ {float(info_papel1['Valor_de_mercado'][0]):,.2f}")
+			except:
+				st.write('**Valor de mercado:**', 'Sem informação')
+			try:
+				st.write('**Patrimônio Líquido:**' , f"R$ {float(info_papel1['Patrim_Liq' ][0]):,.2f}")
+			except:
+				st.write('**Patrimônio Líquido:**' , 'Sem informação')
+			try:
+				st.write('**Receita Líquida 12m:**', f"R$ {float(info_papel1['Receita_Liquida_12m'][0]):,.2f}")
+			except:
+				st.write('**Receita Líquida 12m:**', 'Sem informação')
+			try:
+				st.write('**Dívida Bruta:**'       , f"R$ {float(info_papel1['Div_Bruta'  ][0]):,.2f}")
+			except:
+				st.write('**Dívida Bruta:**'       , 'Sem informação')
+			try:
+				st.write('**Dívida Líquida:**'     , f"R$ {float(info_papel1['Div_Liquida'][0]):,.2f}")
+			except:
+				st.write('**Dívida Líquida:**'     , 'Sem informação')
+			try:
+				st.write('**Lucro Líquido 12m:**'  , f"R$ {float(info_papel1['Lucro_Liquido_12m'][0]):,.2f}")
+			except:
+				st.write('**Lucro Líquido 12m:**'  , 'Sem informação')
+			try:
+				st.write('**P/L:**'                , f"R$ {float(info_papel1['PL'         ][0]):,.2f}")
+			except:
+				st.write('**P/L:**'                , 'Sem informação')
+			try:
+				st.write('**Dividend Yield:**'     , f"   {info_papel1      ['Div_Yield'  ][0]}")
+			except:
+				st.write('**Dividend Yield:**'     , 'Sem informação')
+
 
 	if comparar:
 		with col2:
@@ -210,18 +239,41 @@ def fundamentos():
 				st.write('**Empresa:**'            ,       info_papel2      ['Empresa'][0])  
 				st.write('**Setor:**'              ,       info_papel2      ['Setor'][0]) 
 				st.write('**Subsetor:**'           ,       info_papel2      ['Subsetor'][0]) 
-				st.write('**Valor de Mercado:**'   , f"R$ {info_papel2      ['Valor_de_mercado'][0]:,.2f}") 
-				st.write('**Patrimônio Líquido:**' , f"R$ {float(info_papel2['Patrim_Liq' ][0]):,.2f}")
-				st.write('**Receita Líquida 12m:**', f"R$ {float(info_papel2['Receita_Liquida_12m'][0]):,.2f}")
-				st.write('**Dívida Bruta:**'       , f"R$ {float(info_papel2['Div_Bruta'  ][0]):,.2f}")
-				st.write('**Dívida Líquida:**'     , f"R$ {float(info_papel2['Div_Liquida'][0]):,.2f}")
-				st.write('**P/L:**'                , f"R$ {float(info_papel2['PL'         ][0]):,.2f}")
-				st.write('**Dividend Yield:**'     , f"   {info_papel2      ['Div_Yield'  ][0]}")
+				st.markdown('---')
+				try:
+					st.write('**Valor de Mercado:**'   , f"R$ {float(info_papel2['Valor_de_mercado'][0]):,.2f}") 
+				except:
+					st.write('**Valor de Mercado:**'   , 'Sem informação') 
+				try:
+					st.write('**Patrimônio Líquido:**' , f"R$ {float(info_papel2['Patrim_Liq' ][0]):,.2f}")
+				except:
+					st.write('**Patrimônio Líquido:**' , 'Sem informação')
+				try:
+					st.write('**Receita Líquida 12m:**', f"R$ {float(info_papel2['Receita_Liquida_12m'][0]):,.2f}")
+				except:
+					st.write('**Receita Líquida 12m:**', 'Sem informação')
+				try:
+					st.write('**Dívida Bruta:**'       , f"R$ {float(info_papel2['Div_Bruta'  ][0]):,.2f}")
+				except:
+					st.write('**Dívida Bruta:**'       , 'Sem informação')
+				try:
+					st.write('**Dívida Líquida:**'     , f"R$ {float(info_papel2['Div_Liquida'][0]):,.2f}")
+				except:
+					st.write('**Dívida Líquida:**'     , 'Sem informação')
+				try:
+					st.write('**Lucro Líquido 12m:**'  , f"R$ {float(info_papel2['Lucro_Liquido_12m'][0]):,.2f}")
+				except:
+					st.write('**Lucro Líquido 12m:**'  , 'Sem informação')
+				try:
+					st.write('**P/L:**'                , f"R$ {float(info_papel2['PL'         ][0]):,.2f}")
+				except:
+					st.write('**P/L:**'                , 'Sem informação')
+				try:
+					st.write('**Dividend Yield:**'     , f"   {info_papel2      ['Div_Yield'  ][0]}")
+				except:
+					st.write('**Dividend Yield:**'     , 'Sem informação')
+					
 	
-	
-	
-
-
 
 #a funcao main: a principal funcao que vai carregar a sidebar e chamar o menu
 def main():
